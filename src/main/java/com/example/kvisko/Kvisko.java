@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Kvisko extends Application {
 
     public static void main(String[] args) {
@@ -29,9 +31,12 @@ public class Kvisko extends Application {
         Button button = new Button("Click me");
 
         Timer timer = new Timer(label);
-
+        List<Question> questions = ReadXMLFile.getQuestions();
 
         button.setOnAction(f -> {
+            for(int i = 0; i<5; i++){
+                System.out.println(questions.get(i));
+            }
             Timer timer1 = timer;
             if (!Timer.isStarted) {
                 timer1.start();
