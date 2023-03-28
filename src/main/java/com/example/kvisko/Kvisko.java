@@ -8,12 +8,28 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Kvisko extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void init() {
+        //Establishing a connection with the database
+        String url = "jdbc:mysql://localhost:3306/mydatabase?createDatabaseIfNotExist=true";
+        String username = "root";
+        String password = "admin123";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            DriverManager.getConnection(url, username, password);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -34,13 +50,13 @@ public class Kvisko extends Application {
         List<Question> questions = ReadXMLFile.getQuestions();
 
         button.setOnAction(f -> {
-            for(int i = 0; i<5; i++){
+            for (int i = 0; i < 5; i++) {
                 System.out.println(questions.get(i));
             }
             Timer timer1 = timer;
             if (!Timer.isStarted) {
                 timer1.start();
-                Timer.isStarted=true;
+                Timer.isStarted = true;
             } else {
                 timer1.restart();
             }
