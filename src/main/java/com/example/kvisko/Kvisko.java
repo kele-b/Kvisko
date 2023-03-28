@@ -42,12 +42,7 @@ public class Kvisko extends Application {
 
         });
 
-        Button button1 = new Button("Restart time");
-        button1.setOnAction(e -> {
-            //timer.restart();
-        });
-
-        parent.getChildren().addAll(label, button, button1);
+        parent.getChildren().addAll(label, button);
 
         parent.setAlignment(Pos.CENTER);
 
