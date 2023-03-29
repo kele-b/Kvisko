@@ -1,4 +1,4 @@
-package com.example.kvisko;
+package com.example.kvisko.database;
 
 import java.util.ArrayList;
 

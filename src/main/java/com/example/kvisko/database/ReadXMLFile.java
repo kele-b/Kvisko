@@ -1,4 +1,4 @@
-package com.example.kvisko;
+package com.example.kvisko.database;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

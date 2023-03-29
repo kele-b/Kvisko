@@ -1,14 +1,16 @@
 package com.example.kvisko;
 
+import com.example.kvisko.database.DatabaseConnection;
+import com.example.kvisko.timer.Timer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class Kvisko extends Application {
 
@@ -16,7 +18,11 @@ public class Kvisko extends Application {
         launch(args);
     }
 
-    DatabaseConnection databaseConnection = new DatabaseConnection();
+    private DatabaseConnection databaseConnection = new DatabaseConnection();
+
+    public DatabaseConnection getDatabaseConnection() {
+        return databaseConnection;
+    }
 
     @Override
     public void init() {
@@ -26,11 +32,10 @@ public class Kvisko extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Kvisko");
-        stage.setHeight(600);
-        stage.setWidth(800);
-        stage.setResizable(false);
 
+        Parent loginForm = FXMLLoader.load(getClass().getResource("login.fxml"));
+
+        Parent registerForm = FXMLLoader.load(getClass().getResource("register.fxml"));
 
         VBox parent = new VBox(10);
 
@@ -55,10 +60,14 @@ public class Kvisko extends Application {
 
         parent.setAlignment(Pos.CENTER);
 
+        Scene loginScene = new Scene(loginForm, 700, 400);
+        Scene registerScene = new Scene(registerForm, 700, 450);
 
-        Scene scene = new Scene(parent);
-        stage.setScene(scene);
-
+        stage.setScene(registerScene);
+        stage.setTitle("Kvisko");
+        stage.setHeight(stage.getScene().getHeight());
+        stage.setWidth(stage.getScene().getWidth());
+        stage.setResizable(false);
         stage.show();
 
 

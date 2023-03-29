@@ -1,4 +1,4 @@
-package com.example.kvisko;
+package com.example.kvisko.database;
 
 public class User {
 

@@ -1,4 +1,4 @@
-package com.example.kvisko;
+package com.example.kvisko.timer;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;

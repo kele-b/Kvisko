@@ -1,4 +1,4 @@
-package com.example.kvisko;
+package com.example.kvisko.database;
 
 import java.sql.*;
 import java.util.List;
@@ -21,16 +21,24 @@ public class DatabaseConnection extends Thread {
             Connection connection = DriverManager.getConnection(url + isCreated, username, password);
             System.out.println("Connection is successful to the database " + url);
 
-            // create the questions table if it doesn't exist
+            // create the questions and user table if it doesn't exist
             Statement statement = connection.createStatement();
-            String createTableQuery =
+            String createQuestionTableQuery =
                     "CREATE TABLE IF NOT EXISTS questions (id INT PRIMARY KEY AUTO_INCREMENT, " +
                             "question_text VARCHAR(1000), " +
                             "correct_answer VARCHAR(255)," +
                             "answer_1 VARCHAR(255)," +
                             "answer_2 VARCHAR(255)," +
                             "answer_3 VARCHAR(255))";
-            statement.execute(createTableQuery);
+            statement.execute(createQuestionTableQuery);
+
+            String createUserTableQuery = "CREATE TABLE IF NOT EXISTS users(id INT PRIMARY KEY AUTO_INCREMENT, "+
+                    "first_name VARCHAR(255), "+
+                    "last_name VARCHAR(255), "+
+                    "username VARCHAR(255) UNIQUE, "+
+                    "_password VARCHAR(255), "+
+                    "email VARCHAR(255) UNIQUE )";
+            statement.execute(createUserTableQuery);
 
             // check if the questions table is already populated
             String selectQuery = "SELECT * FROM questions";

@@ -9,4 +9,10 @@ module com.example.kvisko {
 
     opens com.example.kvisko to javafx.fxml;
     exports com.example.kvisko;
+    exports com.example.kvisko.database;
+    opens com.example.kvisko.database to javafx.fxml;
+    exports com.example.kvisko.timer;
+    opens com.example.kvisko.timer to javafx.fxml;
+    exports com.example.kvisko.controllers;
+    opens com.example.kvisko.controllers to javafx.fxml;
 }
