@@ -17,13 +17,14 @@ public class DatabaseConnection extends Thread {
 
     private User user;
 
-//    private DatabaseService databaseService;
-//
-//    public DatabaseService getDatabaseService() {
-//        return databaseService;
-//    }
-
     private boolean addingUser = false;
+
+    private boolean loggingInUser = false;
+
+    private String usernameLogin;
+
+    private String passwordLogin;
+
 
     @Override
     public void run() {
@@ -35,6 +36,17 @@ public class DatabaseConnection extends Thread {
             if (addingUser) {
                 databaseService.addUser(user);
                 addingUser = false;
+            }
+
+            if (loggingInUser) {
+                try {
+                    databaseService.loginUser(usernameLogin, passwordLogin);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }finally {
+                    loggingInUser = false;
+                }
+
             }
 
             try {
@@ -104,5 +116,11 @@ public class DatabaseConnection extends Thread {
     public void registerUser(User user) {
         this.user = user;
         addingUser = true;
+    }
+
+    public void loginUser(String username, String password) {
+        this.usernameLogin = username;
+        this.passwordLogin = password;
+        loggingInUser = true;
     }
 }

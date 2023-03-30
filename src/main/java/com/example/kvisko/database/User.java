@@ -12,6 +12,8 @@ public class User {
 
     private String email;
 
+    private int points;
+
     public User() {
     }
 
@@ -21,6 +23,16 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.points = 0;
+    }
+
+    public User(String firstName, String lastName, String username, String password, String email, int points) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.points = points;
     }
 
     public String getFirstName() {
@@ -61,5 +73,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }
