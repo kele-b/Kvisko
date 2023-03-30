@@ -1,9 +1,16 @@
 package com.example.kvisko.controllers;
 
+import com.example.kvisko.Kvisko;
+import com.example.kvisko.database.User;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class RegisterController {
 
@@ -18,14 +25,15 @@ public class RegisterController {
     public TextField email;
 
     public void registerUser(ActionEvent actionEvent) {
-        System.out.println(firstName.getText() +"\n"+
-                lastName.getText()+"\n"+
-                username.getText() +"\n"+
-                password.getText() +"\n"+
+        User user = new User(firstName.getText(),
+                lastName.getText(),
+                username.getText(),
+                password.getText(),
                 email.getText());
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText("All fields are required");
-        alert.show();
+        Kvisko.databaseConnection.registerUser(user);
 
+        if(Kvisko.getCurrentUser()!=null){
+            email.getScene().setRoot(Kvisko.home);
+        }
     }
 }

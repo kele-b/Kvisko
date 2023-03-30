@@ -5,20 +5,55 @@ import java.util.List;
 
 public class DatabaseConnection extends Thread {
 
+    private String url = "jdbc:mysql://localhost:3306/kvisko";
+
+    private String isCreated = "?createDatabaseIfNotExist=true";
+
+    private String username = "root";
+
+    private String password = "admin123";
+
+    private Connection connection;
+
+    private User user;
+
+//    private DatabaseService databaseService;
+//
+//    public DatabaseService getDatabaseService() {
+//        return databaseService;
+//    }
+
+    private boolean addingUser = false;
+
     @Override
     public void run() {
         connectAndPopulateDB();
+        DatabaseService databaseService = new DatabaseService(connection);
+
+        while (true) {
+
+            if (addingUser) {
+                System.out.println("Adding user ...");
+                databaseService.addUser(user);
+                addingUser = false;
+            }
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
     }
 
     private synchronized void connectAndPopulateDB() {
         // establishing a connection with the database
-        String url = "jdbc:mysql://localhost:3306/kvisko";
-        String isCreated = "?createDatabaseIfNotExist=true";
-        String username = "root";
-        String password = "admin123";
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url + isCreated, username, password);
+            connection = DriverManager.getConnection(url + isCreated, username, password);
             System.out.println("Connection is successful to the database " + url);
 
             // create the questions and user table if it doesn't exist
@@ -32,12 +67,13 @@ public class DatabaseConnection extends Thread {
                             "answer_3 VARCHAR(255))";
             statement.execute(createQuestionTableQuery);
 
-            String createUserTableQuery = "CREATE TABLE IF NOT EXISTS users(id INT PRIMARY KEY AUTO_INCREMENT, "+
-                    "first_name VARCHAR(255), "+
-                    "last_name VARCHAR(255), "+
-                    "username VARCHAR(255) UNIQUE, "+
-                    "_password VARCHAR(255), "+
-                    "email VARCHAR(255) UNIQUE )";
+            String createUserTableQuery = "CREATE TABLE IF NOT EXISTS users(id INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "first_name VARCHAR(255), " +
+                    "last_name VARCHAR(255), " +
+                    "username VARCHAR(255) UNIQUE, " +
+                    "_password VARCHAR(255), " +
+                    "email VARCHAR(255) UNIQUE," +
+                    "points INT )";
             statement.execute(createUserTableQuery);
 
             // check if the questions table is already populated
@@ -64,5 +100,10 @@ public class DatabaseConnection extends Thread {
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void registerUser(User user) {
+        this.user = user;
+        addingUser = true;
     }
 }
