@@ -33,7 +33,6 @@ public class DatabaseConnection extends Thread {
         while (true) {
 
             if (addingUser) {
-                System.out.println("Adding user ...");
                 databaseService.addUser(user);
                 addingUser = false;
             }

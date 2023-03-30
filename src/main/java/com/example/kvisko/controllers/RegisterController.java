@@ -31,9 +31,5 @@ public class RegisterController {
                 password.getText(),
                 email.getText());
         Kvisko.databaseConnection.registerUser(user);
-
-        if(Kvisko.getCurrentUser()!=null){
-            email.getScene().setRoot(Kvisko.home);
-        }
     }
 }
