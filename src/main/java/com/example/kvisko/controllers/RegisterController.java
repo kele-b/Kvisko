@@ -2,11 +2,7 @@ package com.example.kvisko.controllers;
 
 import com.example.kvisko.Kvisko;
 import com.example.kvisko.database.User;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

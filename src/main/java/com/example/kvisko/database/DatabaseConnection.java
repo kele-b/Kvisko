@@ -1,6 +1,7 @@
 package com.example.kvisko.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseConnection extends Thread {
@@ -21,9 +22,13 @@ public class DatabaseConnection extends Thread {
 
     private boolean loggingInUser = false;
 
+    private boolean gettingQuestions = false;
+
     private String usernameLogin;
 
     private String passwordLogin;
+
+    private ArrayList<Question> questions;
 
 
     @Override
@@ -43,10 +48,17 @@ public class DatabaseConnection extends Thread {
                     databaseService.loginUser(usernameLogin, passwordLogin);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }finally {
+                } finally {
                     loggingInUser = false;
                 }
+            }
 
+            if(gettingQuestions){
+                try {
+                    databaseService.getQuestions();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             try {
@@ -122,5 +134,9 @@ public class DatabaseConnection extends Thread {
         this.usernameLogin = username;
         this.passwordLogin = password;
         loggingInUser = true;
+    }
+
+    public void getQuestions() {
+        gettingQuestions = true;
     }
 }

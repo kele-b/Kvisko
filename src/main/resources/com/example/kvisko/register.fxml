@@ -53,8 +53,8 @@
             <TextField fx:id="firstName" GridPane.columnIndex="1" />
             <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <Button layoutX="182.0" layoutY="301.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="26.0" prefWidth="235.0" text="Registracija" />

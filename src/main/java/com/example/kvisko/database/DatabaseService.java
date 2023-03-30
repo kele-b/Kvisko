@@ -1,6 +1,7 @@
 package com.example.kvisko.database;
 
 import com.example.kvisko.Kvisko;
+import com.example.kvisko.quiz.Quiz;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseService {
 
@@ -17,7 +19,7 @@ public class DatabaseService {
         this.connection = connection;
     }
 
-    public synchronized void addUser(User user) {
+    protected synchronized void addUser(User user) {
         /*
 
         TO DO:
@@ -73,7 +75,7 @@ public class DatabaseService {
         }
     }
 
-    public synchronized void loginUser(String username, String password) throws SQLException {
+    protected synchronized void loginUser(String username, String password) throws SQLException {
         PreparedStatement getStatement = connection.prepareStatement(
                 "SELECT * FROM users WHERE username = ? AND _password = ?"
         );
@@ -91,6 +93,7 @@ public class DatabaseService {
                     user.getInt("points"));
             Kvisko.setCurrentUser(currentUser);
             Kvisko.loginForm.getScene().setRoot(Kvisko.home);
+            getStatement.close();
         }
         else {
             Platform.runLater(() -> {
@@ -100,6 +103,29 @@ public class DatabaseService {
                 alert.show();
             });
         }
+    }
+
+    protected synchronized void getQuestions() throws SQLException {
+
+        PreparedStatement getStatement = connection.prepareStatement(
+                "SELECT * FROM questions ORDER BY RAND() LIMIT 15"
+        );
+        ResultSet resultSet = getStatement.executeQuery();
+        ArrayList<Question> questions = new ArrayList<>();
+
+        while (resultSet.next()){
+            ArrayList<String> incorrectAnswers = new ArrayList<>();
+            incorrectAnswers.add(resultSet.getString("answer_1"));
+            incorrectAnswers.add(resultSet.getString("answer_2"));
+            incorrectAnswers.add(resultSet.getString("answer_3"));
+            questions.add(new Question(
+                    resultSet.getString("question_text"),
+                    resultSet.getString("correct_answer"),
+                    incorrectAnswers
+            ));
+        }
+        Kvisko.setQuiz(new Quiz(questions));
+        getStatement.close();
     }
 
 }

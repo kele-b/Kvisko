@@ -15,4 +15,6 @@ module com.example.kvisko {
     opens com.example.kvisko.timer to javafx.fxml;
     exports com.example.kvisko.controllers;
     opens com.example.kvisko.controllers to javafx.fxml;
+    opens com.example.kvisko.quiz to javafx.fxml;
+    exports com.example.kvisko.quiz;
 }

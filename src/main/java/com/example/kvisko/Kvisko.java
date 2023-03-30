@@ -2,6 +2,7 @@ package com.example.kvisko;
 
 import com.example.kvisko.database.DatabaseConnection;
 import com.example.kvisko.database.User;
+import com.example.kvisko.quiz.Quiz;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,16 @@ public class Kvisko extends Application {
     public static Parent loginForm;
 
     private static User currentUser;
+
+    private static Quiz quiz;
+
+    public static Quiz getQuiz() {
+        return quiz;
+    }
+
+    public static void setQuiz(Quiz quiz) {
+        Kvisko.quiz = quiz;
+    }
 
     public static User getCurrentUser() {
         return currentUser;

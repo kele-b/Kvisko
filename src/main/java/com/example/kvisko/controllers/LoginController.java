@@ -23,5 +23,6 @@ public class LoginController {
         String username = this.username.getText();
         String password = this.password.getText();
         Kvisko.databaseConnection.loginUser(username, password);
+        Kvisko.databaseConnection.getQuestions();
     }
 }
