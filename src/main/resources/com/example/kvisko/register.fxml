@@ -58,5 +58,6 @@
          </children>
       </GridPane>
       <Button layoutX="182.0" layoutY="301.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="26.0" prefWidth="235.0" text="Registracija" />
+      <Button fx:id="backButton" layoutX="39.0" layoutY="302.0" mnemonicParsing="false" onAction="#backToLoginForm" text="Back" />
    </children>
 </AnchorPane>

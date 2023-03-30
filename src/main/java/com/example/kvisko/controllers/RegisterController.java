@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -24,6 +25,8 @@ public class RegisterController {
 
     public TextField email;
 
+    public Button backButton;
+
     public void registerUser(ActionEvent actionEvent) {
         User user = new User(firstName.getText(),
                 lastName.getText(),
@@ -31,5 +34,9 @@ public class RegisterController {
                 password.getText(),
                 email.getText());
         Kvisko.databaseConnection.registerUser(user);
+    }
+
+    public void backToLoginForm(ActionEvent actionEvent) {
+        backButton.getScene().setRoot(Kvisko.loginForm);
     }
 }
