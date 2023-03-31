@@ -84,7 +84,7 @@ public class Kvisko extends Application {
 //
 //        parent.setAlignment(Pos.CENTER);
 
-        Scene loginScene = new Scene(loginForm, 600, 400);
+        Scene loginScene = new Scene(loginForm, 620, 400);
         stage.setScene(loginScene);
         stage.setTitle("Kvisko");
         stage.setHeight(stage.getScene().getHeight());

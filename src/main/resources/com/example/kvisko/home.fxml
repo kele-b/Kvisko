@@ -20,5 +20,7 @@
             <Button fx:id="answer4" layoutX="14.0" layoutY="214.0" mnemonicParsing="false" onAction="#submitAnswer4" prefHeight="26.0" prefWidth="574.0" text="4. odgovor" textAlignment="CENTER" />
          </children>
       </Pane>
+      <Label fx:id="timeLeft" contentDisplay="CENTER" layoutX="320.0" layoutY="51.0" text="60" visible="false" />
+      <Label fx:id="time" layoutX="268.0" layoutY="51.0" text="Vrijeme: " visible="false" />
    </children>
 </AnchorPane>

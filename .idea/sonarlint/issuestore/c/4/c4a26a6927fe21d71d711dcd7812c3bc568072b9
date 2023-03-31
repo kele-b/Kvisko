@@ -1,18 +1,0 @@
-
-s
-java:S1104
-"VMake newUserBtn a static final constant or non-public and provide accessors if needed.(Û÷Øß8¾Ï«•ó0
-n
-java:S1104"QMake login a static final constant or non-public and provide accessors if needed.(ß‘û¸8¿Ï«•ó0
-p
-java:S1104"TMake username a static final constant or non-public and provide accessors if needed.(¼·á>8¿Ï«•ó0
-v
-java:S1104"TMake password a static final constant or non-public and provide accessors if needed.(“Ü¿êûÿÿÿÿ8¿Ï«•ó0
-O
-java:S1172"2Remove this unused method parameter "actionEvent".(ŸçÒ÷8ËÏ«•ó0
-O
-java:S1172"2Remove this unused method parameter "actionEvent".(œ ˆ¯8ËÏ«•ó0
-^
-java:S1117"<Rename "username" which hides the field declared at line 14.(­¬Èåùÿÿÿÿ8ËÏ«•ó0
-^
-java:S1117"<Rename "password" which hides the field declared at line 16.(š³ÿóüÿÿÿÿ8ËÏ«•ó0

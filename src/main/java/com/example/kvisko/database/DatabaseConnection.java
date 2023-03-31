@@ -79,7 +79,7 @@ public class DatabaseConnection extends Thread {
             }
 
             try {
-                Thread.sleep(100);
+                sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

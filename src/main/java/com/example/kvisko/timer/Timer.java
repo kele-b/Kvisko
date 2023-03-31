@@ -6,30 +6,30 @@ import org.apache.commons.lang3.time.StopWatch;
 
 public class Timer extends Thread {
 
-    private static final int SECONDS = 60;
-
-    public static boolean isStarted = false;
+    private static final int SECONDS = 5;
 
     Label timeLabel;
-
-    public Timer(Label label) {
-        timeLabel = label;
-    }
 
     StopWatch stopWatch = new StopWatch();
 
     boolean timeIsUp = false;
 
+    boolean timeEnd = false;
+
+    public Timer(Label label) {
+        timeLabel = label;
+    }
+
     @Override
     public void run() {
         stopWatch.start();
-        while (!timeIsUp) {
+        while (!timeIsUp && !timeEnd) {
             long time = SECONDS - stopWatch.getTime() / 1000;
 
             Platform.runLater(() -> {
                 timeLabel.setText(String.valueOf(time));
                 if (time == 0) {
-                    timeLabel.setText(String.valueOf("Vrijeme isteklo!"));
+                    timeLabel.setText(String.valueOf("isteklo!"));
                     timeIsUp = true;
                 }
             });
@@ -44,5 +44,21 @@ public class Timer extends Thread {
     public void restart() {
         stopWatch.reset();
         stopWatch.start();
+    }
+
+    public void setTimeIsUp(boolean timeIsUp) {
+        this.timeIsUp = timeIsUp;
+    }
+
+    public boolean isTimeIsUp() {
+        return timeIsUp;
+    }
+
+    public boolean isTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(boolean timeEnd) {
+        this.timeEnd = timeEnd;
     }
 }
