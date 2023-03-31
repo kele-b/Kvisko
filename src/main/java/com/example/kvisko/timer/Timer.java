@@ -6,7 +6,7 @@ import org.apache.commons.lang3.time.StopWatch;
 
 public class Timer extends Thread {
 
-    private static final int SECONDS = 5;
+    private static final int SECONDS = 60;
 
     Label timeLabel;
 

@@ -7,12 +7,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,25 +17,35 @@ import java.util.List;
 
 public class HomeController {
 
-    public Button listUsers;
+    @FXML
+    private Button listUsers;
 
-    public Button startButton;
+    @FXML
+    private Button startButton;
 
-    public Pane quizPane;
+    @FXML
+    private Pane quizPane;
 
-    public TextArea question;
+    @FXML
+    private TextArea question;
 
-    public Button answer1;
+    @FXML
+    private Button answer1;
 
-    public Button answer2;
+    @FXML
+    private Button answer2;
 
-    public Button answer3;
+    @FXML
+    private Button answer3;
 
-    public Button answer4;
+    @FXML
+    private Button answer4;
 
-    public Label timeLeft;
+    @FXML
+    private Label timeLeft;
 
-    public Label time;
+    @FXML
+    private Label time;
 
     private ArrayList<Question> questions;
 

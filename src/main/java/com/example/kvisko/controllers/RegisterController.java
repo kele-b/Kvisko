@@ -3,6 +3,7 @@ package com.example.kvisko.controllers;
 import com.example.kvisko.Kvisko;
 import com.example.kvisko.database.User;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -10,17 +11,23 @@ import javafx.scene.control.TextField;
 
 public class RegisterController {
 
-    public TextField firstName;
+    @FXML
+    private TextField firstName;
 
-    public TextField lastName;
+    @FXML
+    private TextField lastName;
 
-    public TextField username;
+    @FXML
+    private TextField username;
 
-    public PasswordField password;
+    @FXML
+    private PasswordField password;
 
-    public TextField email;
+    @FXML
+    private TextField email;
 
-    public Button backButton;
+    @FXML
+    private Button backButton;
 
     public void registerUser(ActionEvent actionEvent) {
         User user = new User(firstName.getText(),

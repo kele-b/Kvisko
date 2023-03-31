@@ -2,18 +2,23 @@ package com.example.kvisko.controllers;
 
 import com.example.kvisko.Kvisko;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class LoginController {
 
-    public Button newUserBtn;
+    @FXML
+    private Button newUserBtn;
 
-    public Button login;
+    @FXML
+    private Button login;
 
-    public TextField username;
+    @FXML
+    private TextField username;
 
-    public TextField password;
+    @FXML
+    private TextField password;
 
     public void changeToRegistationForm(ActionEvent actionEvent) {
         newUserBtn.getScene().setRoot(Kvisko.registerForm);
