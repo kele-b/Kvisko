@@ -128,4 +128,14 @@ public class DatabaseService {
         getStatement.close();
     }
 
+    protected synchronized void savePoints(int pointsScored) throws SQLException {
+        PreparedStatement insertStatement = connection.prepareStatement(
+                "UPDATE users SET points = points + ? WHERE username IN (?)"
+        );
+        insertStatement.setInt(1,pointsScored);
+        insertStatement.setString(2, Kvisko.getCurrentUser().getUsername());
+        insertStatement.executeUpdate();
+        insertStatement.close();
+    }
+
 }

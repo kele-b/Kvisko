@@ -24,9 +24,13 @@ public class DatabaseConnection extends Thread {
 
     private boolean gettingQuestions = false;
 
+    private boolean savingPoints = false;
+
     private String usernameLogin;
 
     private String passwordLogin;
+
+    private int points;
 
     private ArrayList<Question> questions;
 
@@ -53,11 +57,23 @@ public class DatabaseConnection extends Thread {
                 }
             }
 
-            if(gettingQuestions){
+            if (gettingQuestions) {
                 try {
                     databaseService.getQuestions();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
+                } finally {
+                    gettingQuestions = false;
+                }
+            }
+
+            if (savingPoints) {
+                try {
+                    databaseService.savePoints(points);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    savingPoints = false;
                 }
             }
 
@@ -138,5 +154,10 @@ public class DatabaseConnection extends Thread {
 
     public void getQuestions() {
         gettingQuestions = true;
+    }
+
+    public void savePoints(int points) {
+        this.points = points;
+        savingPoints = true;
     }
 }
