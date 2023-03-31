@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseService {
 
@@ -124,7 +125,7 @@ public class DatabaseService {
                     incorrectAnswers
             ));
         }
-        Kvisko.setQuiz(new Quiz(questions));
+        Kvisko.getQuiz().setQuestions(questions);
         getStatement.close();
     }
 
@@ -138,4 +139,23 @@ public class DatabaseService {
         insertStatement.close();
     }
 
+    protected synchronized void getAllUsers() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM users"
+        );
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<User> users = new ArrayList<>();
+
+        while (resultSet.next()){
+            users.add(new User(
+                    resultSet.getString("first_name"),
+                    resultSet.getString("last_name"),
+                    null, null,
+                    resultSet.getString("email"),
+                    resultSet.getInt("points")
+            ));
+        }
+        Kvisko.getQuiz().setUsers(users);
+        statement.close();
+    }
 }

@@ -5,12 +5,16 @@ import com.example.kvisko.database.Question;
 import com.example.kvisko.timer.Timer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,8 +51,18 @@ public class HomeController {
 
     private Timer timer;
 
-    public void listAllUsers(ActionEvent actionEvent) {
-        Kvisko.home.getScene().setRoot(Kvisko.loginForm);
+    public synchronized void listAllUsers(ActionEvent actionEvent) {
+        Kvisko.databaseConnection.getUsers();
+        while (Kvisko.getQuiz().getUsers() == null) {
+        }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/kvisko/users.fxml"));
+            fxmlLoader.load();
+            UsersControllers usersControllers = fxmlLoader.getController();
+            usersControllers.getTable();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void startQuiz(ActionEvent actionEvent) {

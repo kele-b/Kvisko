@@ -25,16 +25,14 @@ public class Kvisko extends Application {
 
     public static Parent loginForm;
 
+    public static Parent table;
+
     private static User currentUser;
 
     private static Quiz quiz;
 
     public static Quiz getQuiz() {
         return quiz;
-    }
-
-    public static void setQuiz(Quiz quiz) {
-        Kvisko.quiz = quiz;
     }
 
     public static User getCurrentUser() {
@@ -51,6 +49,8 @@ public class Kvisko extends Application {
             home=FXMLLoader.load(getClass().getResource("home.fxml"));
             registerForm = FXMLLoader.load(getClass().getResource("register.fxml"));
             loginForm= FXMLLoader.load(getClass().getResource("login.fxml"));
+            //table = FXMLLoader.load(getClass().getResource("users.fxml"));
+            quiz = new Quiz();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

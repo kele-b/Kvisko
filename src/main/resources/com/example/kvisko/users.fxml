@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kvisko.controllers.UsersControllers">
+   <children>
+      <TableView fx:id="usersTableView" layoutX="-2.0" layoutY="-1.0" prefHeight="400.0" prefWidth="606.0">
+        <columns>
+          <TableColumn fx:id="firstName" prefWidth="130.0" text="Ime " />
+          <TableColumn fx:id="lastName" prefWidth="158.0" text="Prezime" />
+            <TableColumn fx:id="email" prefWidth="199.0" text="email" />
+            <TableColumn fx:id="points" prefWidth="112.0" text="Ukupno bodova" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

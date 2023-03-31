@@ -26,6 +26,8 @@ public class DatabaseConnection extends Thread {
 
     private boolean savingPoints = false;
 
+    private boolean gettingUsers = false;
+
     private String usernameLogin;
 
     private String passwordLogin;
@@ -75,6 +77,16 @@ public class DatabaseConnection extends Thread {
                     throw new RuntimeException(e);
                 } finally {
                     savingPoints = false;
+                }
+            }
+
+            if (gettingUsers) {
+                try {
+                    databaseService.getAllUsers();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    gettingUsers = false;
                 }
             }
 
@@ -160,5 +172,9 @@ public class DatabaseConnection extends Thread {
     public void savePoints(int points) {
         this.points = points;
         savingPoints = true;
+    }
+
+    public void getUsers() {
+        gettingUsers = true;
     }
 }
