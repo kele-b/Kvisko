@@ -70,6 +70,7 @@ public class DatabaseConnection extends Thread {
             if (savingPoints) {
                 try {
                     databaseService.savePoints(points);
+                    databaseService.getQuestions();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 } finally {
