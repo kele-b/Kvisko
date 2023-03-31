@@ -53,6 +53,7 @@ public class UsersControllers {
                 window.setWidth(620);
                 window.setHeight(400);
                 window.initModality(Modality.APPLICATION_MODAL);
+                window.setResizable(false);
                 window.setScene(new Scene(usersTable));
                 window.show();
             } catch (IOException e) {

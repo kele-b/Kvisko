@@ -51,16 +51,16 @@ public class HomeController {
 
     private Timer timer;
 
-    public synchronized void listAllUsers(ActionEvent actionEvent) {
+    public void listAllUsers(ActionEvent actionEvent) {
         Kvisko.databaseConnection.getUsers();
-        while (Kvisko.getQuiz().getUsers() == null) {
-        }
+
         try {
+            Thread.sleep(500);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/kvisko/users.fxml"));
             fxmlLoader.load();
             UsersControllers usersControllers = fxmlLoader.getController();
             usersControllers.getTable();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
@@ -144,6 +144,12 @@ public class HomeController {
             answer3.setText(answers.get(2));
             answer4.setText(answers.get(3));
         } catch (IndexOutOfBoundsException e) {
+            Platform.runLater(()->{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("ČESTITAMO!");
+                alert.setContentText("Uspješno ste završili kviz!");
+                alert.show();
+            });
             endOfQuiz(true);
         }
     }
