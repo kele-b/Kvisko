@@ -27,7 +27,10 @@ public class LoginController {
     public void loginUser(ActionEvent actionEvent) {
         String username = this.username.getText();
         String password = this.password.getText();
-        Kvisko.databaseConnection.loginUser(username, password);
-        Kvisko.databaseConnection.getQuestions();
+        synchronized (Kvisko.databaseConnection) {
+            Kvisko.databaseConnection.loginUser(username, password);
+            Kvisko.databaseConnection.getQuestions();
+           Kvisko.databaseConnection.notify();
+        }
     }
 }

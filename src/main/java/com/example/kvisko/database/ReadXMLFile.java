@@ -27,7 +27,14 @@ public class ReadXMLFile {
     public static void readXMLFile() {
 
         try {
-            File xmlFile = new File("C:\\FX\\kvisko\\src\\main\\resources\\com\\example\\kvisko\\questions.xml");
+            File xmlFile = new File(
+                    "src"+File.separator+
+                    "main"+File.separator+
+                    "resources"+File.separator+
+                    "com"+File.separator+
+                    "example"+File.separator+
+                    "kvisko"+File.separator+
+                    "questions.xml");
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(xmlFile);

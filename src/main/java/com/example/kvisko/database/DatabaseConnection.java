@@ -1,8 +1,13 @@
 package com.example.kvisko.database;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DatabaseConnection extends Thread {
 
@@ -34,68 +39,65 @@ public class DatabaseConnection extends Thread {
 
     private int points;
 
-    private ArrayList<Question> questions;
-
-
     @Override
     public void run() {
         connectAndPopulateDB();
         DatabaseService databaseService = new DatabaseService(connection);
 
         while (true) {
+            synchronized (this) {
+                if (addingUser) {
+                    databaseService.addUser(user);
+                    addingUser = false;
+                }
 
-            if (addingUser) {
-                databaseService.addUser(user);
-                addingUser = false;
-            }
+                if (loggingInUser) {
+                    try {
+                        databaseService.loginUser(usernameLogin, passwordLogin);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        loggingInUser = false;
+                    }
+                }
 
-            if (loggingInUser) {
+                if (gettingQuestions) {
+                    try {
+                        databaseService.getQuestions();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        gettingQuestions = false;
+                    }
+                }
+
+                if (savingPoints) {
+                    try {
+                        databaseService.savePoints(points);
+                        databaseService.getQuestions();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        savingPoints = false;
+                    }
+                }
+
+                if (gettingUsers) {
+                    try {
+                        databaseService.getAllUsers();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        gettingUsers = false;
+                    }
+                }
+
                 try {
-                    databaseService.loginUser(usernameLogin, passwordLogin);
-                } catch (SQLException e) {
+                    wait();
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                } finally {
-                    loggingInUser = false;
                 }
             }
-
-            if (gettingQuestions) {
-                try {
-                    databaseService.getQuestions();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    gettingQuestions = false;
-                }
-            }
-
-            if (savingPoints) {
-                try {
-                    databaseService.savePoints(points);
-                    databaseService.getQuestions();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    savingPoints = false;
-                }
-            }
-
-            if (gettingUsers) {
-                try {
-                    databaseService.getAllUsers();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    gettingUsers = false;
-                }
-            }
-
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
         }
 
     }
@@ -108,7 +110,7 @@ public class DatabaseConnection extends Thread {
             connection = DriverManager.getConnection(url + isCreated, username, password);
             System.out.println("Connection is successful to the database " + url);
 
-            // create the questions and user table if it doesn't exist
+            // create the questions table if it doesn't exist
             Statement statement = connection.createStatement();
             String createQuestionTableQuery =
                     "CREATE TABLE IF NOT EXISTS questions (id INT PRIMARY KEY AUTO_INCREMENT, " +
@@ -119,18 +121,9 @@ public class DatabaseConnection extends Thread {
                             "answer_3 VARCHAR(255))";
             statement.execute(createQuestionTableQuery);
 
-            String createUserTableQuery = "CREATE TABLE IF NOT EXISTS users(id INT PRIMARY KEY AUTO_INCREMENT, " +
-                    "first_name VARCHAR(255), " +
-                    "last_name VARCHAR(255), " +
-                    "username VARCHAR(255) UNIQUE, " +
-                    "_password VARCHAR(255), " +
-                    "email VARCHAR(255) UNIQUE," +
-                    "points INT )";
-            statement.execute(createUserTableQuery);
-
             // check if the questions table is already populated
-            String selectQuery = "SELECT * FROM questions";
-            ResultSet resultSet = statement.executeQuery(selectQuery);
+            String selectQuestionsQuery = "SELECT * FROM questions";
+            ResultSet resultSet = statement.executeQuery(selectQuestionsQuery);
 
             if (!resultSet.next()) {
                 List<Question> questions = ReadXMLFile.getQuestions();
@@ -149,7 +142,29 @@ public class DatabaseConnection extends Thread {
                 }
             }
 
-        } catch (SQLException | ClassNotFoundException ex) {
+            // create the user table if it doesn't exist
+            String createUserTableQuery = "CREATE TABLE IF NOT EXISTS users(id INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "first_name VARCHAR(255), " +
+                    "last_name VARCHAR(255), " +
+                    "username VARCHAR(255) UNIQUE, " +
+                    "_password VARCHAR(255), " +
+                    "email VARCHAR(255) UNIQUE," +
+                    "points INT )";
+            statement.execute(createUserTableQuery);
+
+            //check if the user table is already populated
+            String selectUsersQuery = "SELECT * FROM users";
+            ResultSet usersResultSet = statement.executeQuery(selectUsersQuery);
+            if(!usersResultSet.next()){
+
+                String fileName = "users.sql";
+                Path path = Paths.get("src\\main\\resources\\com\\example\\kvisko\\users.sql");
+                File file = path.toFile();
+                String query = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+                statement.execute(query);
+            }
+
+        } catch (SQLException | ClassNotFoundException | IOException ex) {
             ex.printStackTrace();
         }
     }

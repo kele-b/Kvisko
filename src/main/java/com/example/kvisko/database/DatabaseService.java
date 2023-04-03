@@ -1,7 +1,6 @@
 package com.example.kvisko.database;
 
 import com.example.kvisko.Kvisko;
-import com.example.kvisko.quiz.Quiz;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -10,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseService {
 
@@ -20,11 +18,10 @@ public class DatabaseService {
         this.connection = connection;
     }
 
-    protected synchronized void addUser(User user) {
+    protected void addUser(User user) {
         /*
 
         TO DO:
-        Set text fields to empty after successful registration
         Email and password validation
 
          */
@@ -63,7 +60,8 @@ public class DatabaseService {
         } catch (SQLException e) {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Pogrešan unos!");
+                alert.setTitle("Greška!");
+                alert.setHeaderText("Pogrešan unos!");
                 alert.setContentText(e.getLocalizedMessage());
                 if (e.getMessage().contains("users.username")) {
                     alert.setContentText("Username: " + user.getUsername() + " already exist!");
@@ -76,7 +74,7 @@ public class DatabaseService {
         }
     }
 
-    protected synchronized void loginUser(String username, String password) throws SQLException {
+    protected void loginUser(String username, String password) throws SQLException {
         PreparedStatement getStatement = connection.prepareStatement(
                 "SELECT * FROM users WHERE username = ? AND _password = ?"
         );
@@ -106,7 +104,7 @@ public class DatabaseService {
         }
     }
 
-    protected synchronized void getQuestions() throws SQLException {
+    protected void getQuestions() throws SQLException {
 
         PreparedStatement getStatement = connection.prepareStatement(
                 "SELECT * FROM questions ORDER BY RAND() LIMIT 15"
@@ -129,7 +127,7 @@ public class DatabaseService {
         getStatement.close();
     }
 
-    protected synchronized void savePoints(int pointsScored) throws SQLException {
+    protected void savePoints(int pointsScored) throws SQLException {
         PreparedStatement insertStatement = connection.prepareStatement(
                 "UPDATE users SET points = points + ? WHERE username IN (?)"
         );
@@ -139,7 +137,7 @@ public class DatabaseService {
         insertStatement.close();
     }
 
-    protected synchronized void getAllUsers() throws SQLException {
+    protected void getAllUsers() throws SQLException {
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM users"
         );

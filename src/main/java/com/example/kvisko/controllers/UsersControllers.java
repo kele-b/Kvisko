@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UsersControllers {
 
@@ -78,18 +77,5 @@ public class UsersControllers {
                 .toList();
 
     }
-
-//    public void addUser() {
-//        User user = new User("John", "Doe", "john.doe@example.com", 100);
-//        users.add(user);
-//    }
-//
-//    public void removeUser() {
-//        User selectedUser = usersTableView.getSelectionModel().getSelectedItem();
-//        if (selectedUser != null) {
-//            users.remove(selectedUser);
-//        }
-//    }
-
 
 }

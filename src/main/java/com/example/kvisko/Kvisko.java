@@ -49,7 +49,6 @@ public class Kvisko extends Application {
             home=FXMLLoader.load(getClass().getResource("home.fxml"));
             registerForm = FXMLLoader.load(getClass().getResource("register.fxml"));
             loginForm= FXMLLoader.load(getClass().getResource("login.fxml"));
-            //table = FXMLLoader.load(getClass().getResource("users.fxml"));
             quiz = new Quiz();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,30 +59,6 @@ public class Kvisko extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
-//        VBox parent = new VBox(10);
-//
-//        Label label = new Label("Welcome to KVISKO!");
-//
-//        Button button = new Button("Click me");
-//
-//        Timer timer = new Timer(label);
-//
-//        button.setOnAction(f -> {
-//            Timer timer1 = timer;
-//            if (!Timer.isStarted) {
-//                timer1.start();
-//                Timer.isStarted = true;
-//            } else {
-//                timer1.restart();
-//            }
-//            System.out.println(databaseConnection.isAlive());
-//        });
-//
-//        parent.getChildren().addAll(label, button);
-//
-//        parent.setAlignment(Pos.CENTER);
-
         Scene loginScene = new Scene(loginForm, 620, 400);
         stage.setScene(loginScene);
         stage.setTitle("Kvisko");

@@ -1,5 +1,6 @@
 package com.example.kvisko.timer;
 
+import com.example.kvisko.controllers.HomeController;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import org.apache.commons.lang3.time.StopWatch;
@@ -20,6 +21,16 @@ public class Timer extends Thread {
         timeLabel = label;
     }
 
+   private HomeController homeController;
+
+    public HomeController getHomeController() {
+        return homeController;
+    }
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
+
     @Override
     public void run() {
         stopWatch.start();
@@ -31,6 +42,7 @@ public class Timer extends Thread {
                 if (time == 0) {
                     timeLabel.setText(String.valueOf("isteklo!"));
                     timeIsUp = true;
+                    homeController.endOfQuiz(true);
                 }
             });
             try {

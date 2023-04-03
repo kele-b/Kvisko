@@ -35,7 +35,11 @@ public class RegisterController {
                 username.getText(),
                 password.getText(),
                 email.getText());
-        Kvisko.databaseConnection.registerUser(user);
+        synchronized (Kvisko.databaseConnection) {
+            Kvisko.databaseConnection.registerUser(user);
+            Kvisko.databaseConnection.getQuestions();
+            Kvisko.databaseConnection.notify();
+        }
     }
 
     public void backToLoginForm(ActionEvent actionEvent) {
