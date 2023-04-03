@@ -2,14 +2,13 @@ package com.example.kvisko.controllers;
 
 import com.example.kvisko.Kvisko;
 import com.example.kvisko.database.User;
-import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -39,37 +38,41 @@ public class UsersControllers {
     @FXML
     private TableColumn<User, Integer> points;
 
+    @FXML
+    private TableColumn<User, Integer> rank;
+
     private ObservableList<User> users = FXCollections.observableArrayList();
 
     private ArrayList<User> listOfUsers = Kvisko.getQuiz().getUsers();
 
-    public void getTable(){
+    public void getTable() throws IOException {
         initialize();
-        Platform.runLater(() -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/kvisko/users.fxml"));
-                Parent usersTable = fxmlLoader.load();
-                Stage window = new Stage();
-                window.setTitle("Lista igrača");
-                window.setWidth(620);
-                window.setHeight(400);
-                window.initModality(Modality.APPLICATION_MODAL);
-                window.setResizable(false);
-                window.setScene(new Scene(usersTable));
-                window.show();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/kvisko/users.fxml"));
+        Parent usersTable = fxmlLoader.load();
+        Kvisko.window = new Stage();
+        Kvisko.window.setTitle("Lista igrača");
+        Kvisko.window.setWidth(620);
+        Kvisko.window.setHeight(400);
+        Kvisko.window.setX(120);
+        Kvisko.window.setY(120);
+        Kvisko.window.initModality(Modality.APPLICATION_MODAL);
+        Kvisko.window.setResizable(false);
+        Kvisko.window.setScene(new Scene(usersTable));
+        Kvisko.window.show();
 
-        });
     }
 
     public void initialize() {
+        rank.setCellValueFactory(column -> {
+            int index = users.indexOf(column.getValue()) + 1;
+            return new SimpleIntegerProperty(index).asObject();
+        });
         firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         points.setCellValueFactory(new PropertyValueFactory<>("points"));
         users.setAll(sortUserList());
+        users.add(sortUserList().get(sortUserList().size() - 1));
         usersTableView.setItems(users);
 
         usersTableView.setRowFactory(tv -> new TableRow<User>() {
@@ -91,11 +94,11 @@ public class UsersControllers {
         });
     }
 
-    private List<User> sortUserList(){
-       return listOfUsers.stream()
-                .sorted(Comparator.comparingInt(User :: getPoints).reversed()
-                        .thenComparing(User::getLastName)
-                        .thenComparing(User::getFirstName))
+    private List<User> sortUserList() {
+        return listOfUsers.stream()
+                .sorted(Comparator.comparingInt(User::getPoints).reversed()
+                        .thenComparing(User::getFirstName)
+                        .thenComparing(User::getLastName))
                 .toList();
 
     }

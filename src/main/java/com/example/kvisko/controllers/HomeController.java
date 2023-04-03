@@ -75,12 +75,11 @@ public class HomeController {
         }
 
         try {
-            Thread.sleep(500);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/kvisko/users.fxml"));
             fxmlLoader.load();
             UsersControllers usersControllers = fxmlLoader.getController();
             usersControllers.getTable();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException  e) {
             throw new RuntimeException(e);
         }
     }

@@ -43,6 +43,8 @@ public class Kvisko extends Application {
         Kvisko.currentUser = currentUser;
     }
 
+    public static Stage window;
+
     @Override
     public void init() {
         try {
