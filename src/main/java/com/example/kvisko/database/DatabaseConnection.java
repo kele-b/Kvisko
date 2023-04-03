@@ -156,8 +156,6 @@ public class DatabaseConnection extends Thread {
             String selectUsersQuery = "SELECT * FROM users";
             ResultSet usersResultSet = statement.executeQuery(selectUsersQuery);
             if(!usersResultSet.next()){
-
-                String fileName = "users.sql";
                 Path path = Paths.get("src\\main\\resources\\com\\example\\kvisko\\users.sql");
                 File file = path.toFile();
                 String query = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);

@@ -238,8 +238,5 @@ public class HomeController {
         }
         jokerCounter++;
         jokerButton.setDisable(true);
-
-//        if(jokerCounter==3)
-//            jokerButton.setDisable(true);
     }
 }

@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
@@ -69,11 +71,31 @@ public class UsersControllers {
         points.setCellValueFactory(new PropertyValueFactory<>("points"));
         users.setAll(sortUserList());
         usersTableView.setItems(users);
+
+        usersTableView.setRowFactory(tv -> new TableRow<User>() {
+            @Override
+            protected void updateItem(User user, boolean empty) {
+                super.updateItem(user, empty);
+
+                if (empty || user == null) {
+                    setStyle("");
+                } else {
+                    int index = getIndex();
+                    if (index >= 0 && index < 10) {
+                        setStyle("-fx-background-color: #8ce58c;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+        });
     }
 
     private List<User> sortUserList(){
        return listOfUsers.stream()
-                .sorted(Comparator.comparingInt(User :: getPoints).reversed())
+                .sorted(Comparator.comparingInt(User :: getPoints).reversed()
+                        .thenComparing(User::getLastName)
+                        .thenComparing(User::getFirstName))
                 .toList();
 
     }
