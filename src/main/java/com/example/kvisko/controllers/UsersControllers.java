@@ -62,7 +62,7 @@ public class UsersControllers {
 
     }
 
-    private void initialize() {
+    public void initialize() {
         rank.setCellValueFactory(column -> {
             int index = users.indexOf(column.getValue()) + 1;
             return new SimpleIntegerProperty(index).asObject();
@@ -99,6 +99,12 @@ public class UsersControllers {
                 .sorted(Comparator.comparingInt(User::getPoints).reversed()
                         .thenComparing(User::getFirstName)
                         .thenComparing(User::getLastName))
+                .map(user -> {
+                    String email = user.getEmail();
+                    String modifiedEmail = email.replaceAll("(?<=.{3}).(?=.*@)", "*");
+                    user.setEmail(modifiedEmail);
+                    return user;
+                })
                 .toList();
 
     }

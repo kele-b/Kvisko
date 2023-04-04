@@ -8,7 +8,7 @@
    <children>
       <TableView fx:id="usersTableView" layoutX="-2.0" layoutY="-1.0" prefHeight="400.0" prefWidth="606.0">
         <columns>
-            <TableColumn fx:id="rank" editable="false" prefWidth="42.0" sortable="false" text="Rank" />
+            <TableColumn fx:id="rank" editable="false" prefWidth="42.0" sortable="false" text="Rang" />
           <TableColumn fx:id="firstName" editable="false" prefWidth="131.0" sortable="false" text="Ime " />
           <TableColumn fx:id="lastName" editable="false" prefWidth="109.0" sortable="false" text="Prezime" />
             <TableColumn fx:id="email" editable="false" prefWidth="218.0" sortable="false" text="email" />
