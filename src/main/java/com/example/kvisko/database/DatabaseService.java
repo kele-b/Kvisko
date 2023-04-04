@@ -19,12 +19,6 @@ public class DatabaseService {
     }
 
     void addUser(User user) {
-        /*
-
-        TO DO:
-        Email and password validation
-
-         */
         boolean isFieldEmpty = "".equals(user.getFirstName()) ||
                 "".equals(user.getLastName()) ||
                 "".equals(user.getUsername()) ||
@@ -34,12 +28,26 @@ public class DatabaseService {
         if (isFieldEmpty) {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Pogrešan unos!");
+                alert.setTitle("Greška");
+                alert.setHeaderText("Pogrešan unos!");
                 alert.setContentText("Sva polja su obavezna!");
                 alert.show();
             });
             return;
         }
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+        if(!user.getPassword().matches(passwordRegex)){
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Greška");
+                alert.setHeaderText("Pogrešan unos!");
+                alert.setContentText("Lozinka mora imati najmanje 8 karaktera, kombinaciju malih i velikih slova, 1 broj i 1 specijalni znak");
+                alert.show();
+            });
+            return;
+        }
+
         try {
             PreparedStatement insertStatment = connection.prepareStatement(
                     "INSERT INTO users (first_name, last_name, username, _password, email, points)" +
