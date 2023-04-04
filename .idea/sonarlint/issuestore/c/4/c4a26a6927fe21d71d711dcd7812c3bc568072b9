@@ -1,13 +1,0 @@
-
-O
-java:S1172"2Remove this unused method parameter "actionEvent".(ŸçÒ÷8§º°ïó0
-O
-java:S1172"2Remove this unused method parameter "actionEvent".(œ ˆ¯8¨º°ïó0
-^
-java:S1117"<Rename "username" which hides the field declared at line 17.(­¬Èåùÿÿÿÿ8¨º°ïó0
-^
-java:S1117"<Rename "password" which hides the field declared at line 20.(š³ÿóüÿÿÿÿ8¨º°ïó0
-R
-java:S2446!"0"notify" may not wake up the appropriate thread.(ÀŞĞíüÿÿÿÿ8©º°ïó0
-r
-java:S2236!"PRefactor the synchronisation mechanism to not use a Thread instance as a monitor(ÀŞĞíüÿÿÿÿ8ÁÇ±ïó0

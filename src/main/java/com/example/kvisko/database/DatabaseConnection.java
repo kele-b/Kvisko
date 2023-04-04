@@ -155,7 +155,7 @@ public class DatabaseConnection extends Thread {
             //check if the user table is already populated
             String selectUsersQuery = "SELECT * FROM users";
             ResultSet usersResultSet = statement.executeQuery(selectUsersQuery);
-            if(!usersResultSet.next()){
+            if (!usersResultSet.next()) {
                 Path path = Paths.get("src/main/resources/com/example/kvisko/users.sql");
                 File file = path.toFile();
                 String query = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);

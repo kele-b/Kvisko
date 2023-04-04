@@ -21,15 +21,7 @@ public class Timer extends Thread {
         timeLabel = label;
     }
 
-   private HomeController homeController;
-
-    public HomeController getHomeController() {
-        return homeController;
-    }
-
-    public void setHomeController(HomeController homeController) {
-        this.homeController = homeController;
-    }
+    private HomeController homeController;
 
     @Override
     public void run() {
@@ -72,5 +64,13 @@ public class Timer extends Thread {
 
     public void setTimeEnd(boolean timeEnd) {
         this.timeEnd = timeEnd;
+    }
+
+    public HomeController getHomeController() {
+        return homeController;
+    }
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
     }
 }

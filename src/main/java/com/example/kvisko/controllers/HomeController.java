@@ -79,7 +79,7 @@ public class HomeController {
             fxmlLoader.load();
             UsersControllers usersControllers = fxmlLoader.getController();
             usersControllers.getTable();
-        } catch (IOException  e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -98,7 +98,7 @@ public class HomeController {
         return correctAnswer == answer.getText();
     }
 
-    private void allJokersUsed(){
+    private void allJokersUsed() {
         if (jokerCounter == 3) {
             jokerButton.setDisable(true);
         } else {
@@ -186,7 +186,7 @@ public class HomeController {
                 Kvisko.databaseConnection.notify();
             }
             timer.setTimeEnd(true);
-            jokerCounter=0;
+            jokerCounter = 0;
             jokerButton.setDisable(false);
             if (end && isSuccessfullyCompleted) {
                 Platform.runLater(() -> {
@@ -230,8 +230,8 @@ public class HomeController {
 
         Collections.shuffle(answers);
         for (int i = 0; i < 2; i++) {
-            if(isCorrectAnswer(answers.get(i)))
-                answers.get(i+2).setDisable(true);
+            if (isCorrectAnswer(answers.get(i)))
+                answers.get(i + 2).setDisable(true);
             else
                 answers.get(i).setDisable(true);
         }

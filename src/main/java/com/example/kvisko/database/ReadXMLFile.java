@@ -19,7 +19,7 @@ public class ReadXMLFile {
     private static List<Question> questions = new ArrayList<>();
 
     public static List<Question> getQuestions() {
-        if(questions.isEmpty())
+        if (questions.isEmpty())
             readXMLFile();
         return questions;
     }
@@ -28,13 +28,13 @@ public class ReadXMLFile {
 
         try {
             File xmlFile = new File(
-                    "src"+File.separator+
-                    "main"+File.separator+
-                    "resources"+File.separator+
-                    "com"+File.separator+
-                    "example"+File.separator+
-                    "kvisko"+File.separator+
-                    "questions.xml");
+                    "src" + File.separator +
+                            "main" + File.separator +
+                            "resources" + File.separator +
+                            "com" + File.separator +
+                            "example" + File.separator +
+                            "kvisko" + File.separator +
+                            "questions.xml");
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(xmlFile);
@@ -55,7 +55,7 @@ public class ReadXMLFile {
                     for (int j = 0; j < answerElement.getLength(); j++) {
                         String answer = answerElement.item(j).getTextContent();
                         if (answer.contains("*")) {
-                            question.setCorrectAnswer(answer.replace("*",""));
+                            question.setCorrectAnswer(answer.replace("*", ""));
                         } else {
                             answers.add(answer);
                         }

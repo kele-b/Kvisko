@@ -30,7 +30,7 @@ public class LoginController {
         synchronized (Kvisko.databaseConnection) {
             Kvisko.databaseConnection.loginUser(username, password);
             Kvisko.databaseConnection.getQuestions();
-           Kvisko.databaseConnection.notify();
+            Kvisko.databaseConnection.notify();
         }
     }
 }

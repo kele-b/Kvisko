@@ -45,8 +45,8 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question text: "+questionText+
-                "\nCorrect answer: " + correctAnswer+
-                "\nOther answers: "+ answers;
+        return "Question text: " + questionText +
+                "\nCorrect answer: " + correctAnswer +
+                "\nOther answers: " + answers;
     }
 }

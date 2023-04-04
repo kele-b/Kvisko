@@ -62,7 +62,7 @@ public class UsersControllers {
 
     }
 
-    public void initialize() {
+    private void initialize() {
         rank.setCellValueFactory(column -> {
             int index = users.indexOf(column.getValue()) + 1;
             return new SimpleIntegerProperty(index).asObject();

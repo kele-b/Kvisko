@@ -14,11 +14,11 @@ public class DatabaseService {
 
     private Connection connection;
 
-    public DatabaseService(Connection connection) {
+    DatabaseService(Connection connection) {
         this.connection = connection;
     }
 
-    protected void addUser(User user) {
+    void addUser(User user) {
         /*
 
         TO DO:
@@ -50,7 +50,7 @@ public class DatabaseService {
             insertStatment.setString(3, user.getUsername());
             insertStatment.setString(4, user.getPassword());
             insertStatment.setString(5, user.getEmail());
-            insertStatment.setInt(6,user.getPoints());
+            insertStatment.setInt(6, user.getPoints());
             insertStatment.executeUpdate();
             insertStatment.close();
 
@@ -74,7 +74,7 @@ public class DatabaseService {
         }
     }
 
-    protected void loginUser(String username, String password) throws SQLException {
+    void loginUser(String username, String password) throws SQLException {
         PreparedStatement getStatement = connection.prepareStatement(
                 "SELECT * FROM users WHERE username = ? AND _password = ?"
         );
@@ -83,7 +83,7 @@ public class DatabaseService {
 
         ResultSet user = getStatement.executeQuery();
 
-        if (user.next()){
+        if (user.next()) {
             User currentUser = new User(user.getString("first_name"),
                     user.getString("last_name"),
                     user.getString("username"),
@@ -93,8 +93,7 @@ public class DatabaseService {
             Kvisko.setCurrentUser(currentUser);
             Kvisko.loginForm.getScene().setRoot(Kvisko.home);
             getStatement.close();
-        }
-        else {
+        } else {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Pogrešan unos");
@@ -104,7 +103,7 @@ public class DatabaseService {
         }
     }
 
-    protected void getQuestions() throws SQLException {
+    void getQuestions() throws SQLException {
 
         PreparedStatement getStatement = connection.prepareStatement(
                 "SELECT * FROM questions ORDER BY RAND() LIMIT 15"
@@ -112,7 +111,7 @@ public class DatabaseService {
         ResultSet resultSet = getStatement.executeQuery();
         ArrayList<Question> questions = new ArrayList<>();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             ArrayList<String> incorrectAnswers = new ArrayList<>();
             incorrectAnswers.add(resultSet.getString("answer_1"));
             incorrectAnswers.add(resultSet.getString("answer_2"));
@@ -127,24 +126,24 @@ public class DatabaseService {
         getStatement.close();
     }
 
-    protected void savePoints(int pointsScored) throws SQLException {
+    void savePoints(int pointsScored) throws SQLException {
         PreparedStatement insertStatement = connection.prepareStatement(
                 "UPDATE users SET points = points + ? WHERE username IN (?)"
         );
-        insertStatement.setInt(1,pointsScored);
+        insertStatement.setInt(1, pointsScored);
         insertStatement.setString(2, Kvisko.getCurrentUser().getUsername());
         insertStatement.executeUpdate();
         insertStatement.close();
     }
 
-    protected void getAllUsers() throws SQLException {
+    void getAllUsers() throws SQLException {
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM users"
         );
         ResultSet resultSet = statement.executeQuery();
         ArrayList<User> users = new ArrayList<>();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             users.add(new User(
                     resultSet.getString("first_name"),
                     resultSet.getString("last_name"),
