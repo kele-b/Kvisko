@@ -39,12 +39,14 @@ public class DatabaseConnection extends Thread {
 
     private int points;
 
+    private boolean stop = false;
+
     @Override
     public void run() {
         connectAndPopulateDB();
         DatabaseService databaseService = new DatabaseService(connection);
 
-        while (true) {
+        while (!stop) {
             synchronized (this) {
                 if (addingUser) {
                     databaseService.addUser(user);
@@ -165,6 +167,10 @@ public class DatabaseConnection extends Thread {
         } catch (SQLException | ClassNotFoundException | IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
 
     public void registerUser(User user) {

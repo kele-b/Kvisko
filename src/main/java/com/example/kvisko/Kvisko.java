@@ -4,6 +4,7 @@ import com.example.kvisko.database.DatabaseConnection;
 import com.example.kvisko.database.User;
 import com.example.kvisko.quiz.Quiz;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -53,7 +54,7 @@ public class Kvisko extends Application {
             loginForm= FXMLLoader.load(getClass().getResource("login.fxml"));
             quiz = new Quiz();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         databaseConnection.start();
@@ -68,6 +69,12 @@ public class Kvisko extends Application {
         stage.setWidth(stage.getScene().getWidth());
         stage.setResizable(false);
         stage.show();
-
+        stage.setOnCloseRequest(event -> {
+            synchronized (databaseConnection) {
+                databaseConnection.setStop(true);
+                databaseConnection.notify();
+            }
+            Platform.exit();
+        });
     }
 }
