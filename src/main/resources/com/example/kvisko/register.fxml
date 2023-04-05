@@ -25,27 +25,27 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="202.0" text="First name:">
+            <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="202.0" text="Ime:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="202.0" text="Last name:" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="202.0" text="Prezime:" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="202.0" text="Username:" GridPane.rowIndex="2">
+            <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="202.0" text="Korisničko ime:" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="202.0" text="Password:" GridPane.rowIndex="3">
+            <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="202.0" text="Lozinka:" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="202.0" text="email:" GridPane.rowIndex="4">
+            <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="202.0" text="email:" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
@@ -58,6 +58,6 @@
          </children>
       </GridPane>
       <Button layoutX="182.0" layoutY="301.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="26.0" prefWidth="235.0" text="Registracija" />
-      <Button fx:id="backButton" layoutX="39.0" layoutY="302.0" mnemonicParsing="false" onAction="#backToLoginForm" text="Back" />
+      <Button fx:id="backButton" layoutX="39.0" layoutY="302.0" mnemonicParsing="false" onAction="#backToLoginForm" text="Nazad" />
    </children>
 </AnchorPane>

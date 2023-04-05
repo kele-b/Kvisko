@@ -1,0 +1,11 @@
+
+
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(²î¹®8İ’åºó0
+†
+java:S1319"iThe type of "questions" should be an interface such as "List" rather than the implementation "ArrayList".(€¹ßÄ8İ’åºó0
+’
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ëª“†ıÿÿÿÿ8İ’åºó0
+‚
+java:S1319"eThe type of "users" should be an interface such as "List" rather than the implementation "ArrayList".(áÿƒÇ8Ş’åºó0
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¥‚Óı8ÊÓäºó0
